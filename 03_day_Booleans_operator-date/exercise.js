@@ -56,50 +56,120 @@ console.log("falsyValue",Boolean(""));
 console.log("falsyValue",Boolean(NaN));
 console.log("falsyValue",Boolean(undefined));
 console.log("falsyValue",Boolean(null));
-console.log("falsyValue",Boolean(0n));
+console.log("falsyValue",Boolean(0n));  
 console.log("falsyValue",Boolean(false));
 console.log("document.all",Boolean(document.all
 ));
 
-
-// remain all other is true
-
 // Figure out the result of the following comparison expression first without using console.log(). After you decide the result confirm it using console.log()
 
 // 4 > 3
+console.log("1comparison", 4 > 3);
 // 4 >= 3
+console.log("2comparison", 4 >= 3);
 // 4 < 3
+console.log("3comparison", 4 < 3);
 // 4 <= 3
+console.log("4comparison", 4 <= 3);
 // 4 == 4
+console.log("5comparison", 4 == 4);
 // 4 === 4
+console.log("6comparison", 4 === 4);
 // 4 != 4
+console.log("7comparison", 4 != 4);
 // 4 !== 4
+console.log("8comparison", 4 !== 4);
 // 4 != '4'
+console.log("9comparison", 4 != "4");
 // 4 == '4'
+console.log("10comparison", 4 == "4");
 // 4 === '4'
+console.log("11comparison", 4 === "4");
 // Find the length of python and jargon and make a falsy comparison statement.
 // Figure out the result of the following expressions first without using console.log(). After you decide the result confirm it by using console.log()
 
 // 4 > 3 && 10 < 12
+console.log("&Values", 4 > 3 && 10 < 12);
 // 4 > 3 && 10 > 12
+console.log("&Values",  4 > 3 && 10 > 12);
+
 // 4 > 3 || 10 < 12
+console.log("OrValues", 4 > 3 || 10 < 12);
+
 // 4 > 3 || 10 > 12
+console.log("OrValues", 4 > 3 || 10 > 12);
+
 // !(4 > 3)
+// ✅ Meaning:
+// !true → false
+
+// !false → true
+console.log("!(4 > 3", !(4 > 3));
+
 // !(4 < 3)
+console.log("!(4 < 3)", !(4 < 3));
 // !(false)
+console.log(" !(false)", !(false));
 // !(4 > 3 && 10 < 12)
+console.log("!(4 > 3 && 10 < 12)", !(4 > 3 && 10 < 12));
 // !(4 > 3 && 10 > 12)
+console.log("!(4 > 3 && 10 > 12)", !(4 > 3 && 10 > 12));
 // !(4 === '4')
+console.log("notValues", !(4 === '4'));
+
+// 🔁 Double NOT (!!)
+// To explicitly convert any value to a true or false value.
+console.log("Double NOT (!!)",!!"Hello");  // true (non-empty string is truthy)
+console.log("Double NOT (!!)",!!0);        // false (0 is falsy)
+console.log(!!true);         // true
+console.log(!!false);        // false
+console.log(!!1);            // true
+console.log(!!0);            // false
+console.log(!!"hello");      // true (non-empty string is truthy)
+console.log(!!"");           // false (empty string is falsy)
+console.log(!!null);         // false
+console.log(!!undefined);    // false
+console.log(!!{});           // true (object is truthy)
+console.log(!![]);           // true (array is truthy)
+
+
 // There is no 'on' in both dragon and python
 // Use the Date object to do the following activities
 
 // What is the year today?
+var Exercises = new Date()
+console.log(Exercises.getFullYear());
 // What is the month today as a number?
+console.log(Exercises.getMonth());
 // What is the date today?
+console.log(Exercises.getDate());
 // What is the day today as a number?
+
+
+//  Explanation:
+// getDay() returns the day of the week as a number:
+
+// 0 = Sunday
+
+// 1 = Monday
+
+// 2 = Tuesday
+
+// 3 = Wednesday
+
+// 4 = Thursday
+
+// 5 = Friday
+
+// 6 = Saturday
+console.log(Exercises.getDay());
 // What is the hours now?
+console.log(Exercises.getHours());
 // What is the minutes now?
+console.log(Exercises.getMinutes());
 // Find out the numbers of seconds elapsed from January 1, 1970 to now.
+const secondsElapsed = Math.floor(Date.now()/1000)
+console.log(secondsElapsed);
 
 
 // Exercises: Level 2
@@ -159,9 +229,23 @@ console.log("document.all",Boolean(document.all
 // YYYY-MM-DD HH:mm
 // DD-MM-YYYY HH:mm
 // DD/MM/YYYY HH:mm
+
+
 // Exercises: Level 3
 // Create a human readable time format using the Date time object. The hour and the minute should be all the time two digits(7 hours should be 07 and 5 minutes should be 05 )
-// YYY-MM-DD HH:mm eg. 20120-01-02 07:05
-// << Day 2 | Day 4 >>
 
-// 30-Days-Of-JavaScript/03_Day_Booleans_operators_date/03_booleans_operators_date.md at m
+const activities = new Date();
+
+const yearsTime = String(activities.getHours()).padStart(2, '0');
+const monthsTime = String(activities.getHours()).padStart(2, '0');
+const datesTime = String(activities.getHours()).padStart(2, '0');
+const hoursTime = String(activities.getHours()).padStart(2, '0');
+const minutesTime = String(activities.getMinutes()).padStart(2, '0');
+
+const formattedTime = `${yearsTime}/${monthsTime}/${datesTime} ${hoursTime}:${minutesTime}`;
+
+console.log("formattedTime",formattedTime);
+
+
+
+// YYY-MM-DD HH:mm eg. 20120-01-02 07:05
