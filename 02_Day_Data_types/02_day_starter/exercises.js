@@ -74,19 +74,49 @@ console.log("Quote", "The quote'There is no exercise better for the heart than r
 console.log( "\"Love is not patronizing and charity isn't about pity, it is about love. Charity and love are the same -- with charity you give love, so don't just give money but reach out your hand instead.\"");
 // Check if typeof '10' is exactly equal to 10. If not make it exactly equal.
 
+console.log(parseInt('10') === 10);
+// '10' is a string
+
+// 10 is a number
+
+// === checks for both value and type
 // Check if parseFloat('9.8') is equal to 10 if not make it exactly equal with 10.
+console.log(Math.round(parseFloat('9.8')) === 10);
 
 // Check if 'on' is found in both python and jargon
+let word1 = 'python' 
+let word2 = 'jargon' 
+let check = 'on'
+console.log(word1.includes(check));
+console.log(word2.includes(check));
 
 // I hope this course is not full of jargon. Check if jargon is in the sentence.
+let sentence = "I hope this course is not full of jargon. Check if jargon is in the sentence."
+console.log(sentence.includes('jargon'));
 
 // Generate a random number between 0 and 100 inclusively.
 
+// 🧠 Explanation:
+// Math.random() → gives a random decimal between 0 (inclusive) and 1 (exclusive)
+
+// Math.random() * 101 → gives a number between 0 and just under 101
+
+// Math.floor(...) → rounds down to the nearest whole number
+let RandomNUmber = Math.floor(Math.random()* 101)
+console.log(RandomNUmber);
 // Generate a random number between 50 and 100 inclusively.
+let generate = Math.floor(Math.random() * 51) + 50;
+console.log(generate);
 
 // Generate a random number between 0 and 255 inclusively.
+let generateNumber = Math.floor(Math.random() * 256)
+console.log(generateNumber);
 
 // Access the 'JavaScript' string characters using a random number.
+let text = 'JavaScript'
+let randomIndex = Math.floor(Math.random() * text.length);
+let randomChar = text[randomIndex]
+console.log(`Random character: ${randomChar}`);
 
 // Use console.log() and escape characters to print the following pattern.
 
@@ -95,16 +125,72 @@ console.log( "\"Love is not patronizing and charity isn't about pity, it is abou
 // 3 1 3 9 27
 // 4 1 4 16 64
 // 5 1 5 25 125
+// \t adds a tab space
+
+// \n moves to a new line
+console.log(
+    '1\t 1\t 1\t 1\t 1\n' +
+    '2\t 1\t 2\t 4\t 8\n' +
+    '3\t 1\t 3\t 9\t 27\n '+
+    '4\t 1\t 4\t 16\t 64\n'+
+    '5\t 1\t 5\t 25\t 125'
+);
+
 // Use substr to slice out the phrase because because because from the following sentence:'You cannot end a sentence with because because because is a conjunction'
+
+// That tells us the phrase starts at index 31.
+
+// Now, count the number of characters in "because because because":
+
+// 'because' = 7 letters
+
+// There are 3 of them + 2 spaces between = 7 + 1 + 7 + 1 + 7 = 23
+let useSubstr = 'You cannot end a sentence with because because because is a conjunction'
+console.log(useSubstr.substr(31,23));
 
 // Exercises: Level 3
 // 'Love is the best thing in this world. Some found their love and some are still looking for their love.' Count the number of word love in this sentence.
+let sentence = 'Love is the best thing in this world. Some found their love and some are still looking for their love.'
+let matches = sentence.match(/love/gi)
+let count = matches ? matches.length :0;
+
+console.log(`The word 'love' appeares ${count} times`);
 
 // Use match() to count the number of all because in the following sentence:'You cannot end a sentence with because because because is a conjunction'
+
+let conjunction = 'You cannot end a sentence with because because because is a conjunction'
+let result =(conjunction.match(/because/gi));
+console.log(result);
 
 // Clean the following text and find the most frequent word (hint, use replace and regular expressions).
 
 //     const sentence = '%I $am@% a %tea@cher%, &and& I lo%#ve %te@a@ching%;. The@re $is no@th@ing; &as& mo@re rewarding as educa@ting &and& @emp%o@weri@ng peo@ple. ;I found tea@ching m%o@re interesting tha@n any ot#her %jo@bs. %Do@es thi%s mo@tiv#ate yo@u to be a tea@cher!? %Th#is 30#Days&OfJavaScript &is al@so $the $resu@lt of &love& of tea&ching'
+const sentenceREG =  '%I $am@% a %tea@cher%, &and& I lo%#ve %te@a@ching%;. The@re $is no@th@ing; &as& mo@re rewarding as educa@ting &and& @emp%o@weri@ng peo@ple. ;I found tea@ching m%o@re interesting tha@n any ot#her %jo@bs. %Do@es thi%s mo@tiv#ate yo@u to be a tea@cher!? %Th#is 30#Days&OfJavaScript &is al@so $the $resu@lt of &love& of tea&ching'
+
+// [^a-zA-Z\s] → anything not a letter or space
+
+// g → global (everywhere)
+
+// .replace(...) removes them
+let cleaned = sentence.replace(/[^a-zA-Z\s]/g, '')
+let words = cleaned.toLowerCase().split(/\s+/)
+
+let frequency = {}
+let maxWord = ''
+let maxCount = 0
+
+for(let word of words){
+    if(word === '') continue;
+    frequency[word] = (frequency[word] || 0)+ 1
+if(frequency[word]> maxCount){
+    maxCount = frequency[word];
+    maxWord = word
+}
+}
+
+console.log(`Most frequent word: '${maxWord}' appears ${maxCount} times.`);
+// Most frequent word: 'teaching' appears 3 times.
+
 // Calculate the total annual income of the person by extracting the numbers from the following text. 'He earns 5000 euro from salary per month, 10000 euro annual bonus, 15000 euro online courses per month.'
 
 // 🎉 CONGRATULATIONS ! 🎉
