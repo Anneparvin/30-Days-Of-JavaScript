@@ -126,15 +126,89 @@ for(let user in users){
 console.log("MernDeveloper", mernDevelopers);
 
 // Set your name in the users object without modifying the original users object
+let myName = {...users};
+myName.Anne = {
+    email:"anne@gmail.com",
+    skills: ['HTML', 'CSS', 'JavaScript'],
+    age: 22,
+    isLoggedIn: true,
+    points: 45
+
+}
+console.log("myName",myName);
+console.log("original users:",users);
 
 // Get all keys or properties of users object
+const userKeys = Object.keys(users);
+console.log(userKeys);
+// another method
+for (let user in users) {
+    console.log("properties:",user);
+}
+
 
 // Get all the values of users object
+const userValues = Object.values(users);
+console.log(userValues);
 
 // Use the countries object to print a country name, capital, populations and languages.
-
+let countries = {
+    name:'Finland',
+    capital:'swadwn',
+    population:200,
+    language:'english'
+}
+console.log(countries);
 // Exercises: Level 3
 // Create an object literal called personAccount. It has firstName, lastName, incomes, expenses properties and it has totalIncome, totalExpense, accountInfo,addIncome, addExpense and accountBalance methods. Incomes is a set of incomes and its description and expenses is a set of incomes and its description.
+
+let personAccount = {
+    firstName:'Anne',
+    lastName:'Parven',
+    incomes:{
+        salary:12000,
+        groceries:5000
+    },
+    expenses:{
+         rent: 12000,
+        groceries: 5000
+    },
+    totalIncome:function(){
+        let total = 0;
+        for(let expense in this.expenses){
+            total += this.expenses[expense];
+        }
+        return total;
+    },
+    totalExpense:function(){
+        let total = 0;
+        for(let expense in this.expenses){
+            total += this.expenses[expense];
+        }
+        return total;
+    },
+    accountInfo:function(){
+        return `Name:${this.firstName} ${this.lastName}\nTotal Income:${this.incomes}`
+    },
+    addIncome:function(description, amount){
+        this.incomes[description] = amount;
+    },
+    addExpense: function (description, amount) {
+        this.expenses[description] = amount;
+    },
+    accountBalance: function(){
+        return this.totalIncome() - this.totalExpense();
+    }
+
+};
+console.log(personAccount.accountBalance());
+personAccount.addExpense('transport', 3000);
+console.log(personAccount.expenses);
+personAccount.addIncome('bonus', 8000);
+console.log(personAccount.incomes);
+console.log(personAccount.accountBalance());
+
+
 // **** Questions:2, 3 and 4 are based on the following two arrays:users and products ()
 //     const users = [
 //     {
@@ -209,11 +283,123 @@ console.log("MernDeveloper", mernDevelopers);
 //   }
 // ]
 // Imagine you are getting the above users collection from a MongoDB database. a. Create a function called signUp which allows user to add to the collection. If user exists, inform the user that he has already an account.
+function signUp(newUser){
+    // Check if user already exists (by username or email)
+    const userExists = users.some(
+        user => 
+            user.username === newUser.username || 
+            user.email === newUser.email 
+
+    )
+    if(userExists){
+        console.log("User already has an account");
+    } else {
+        const randomId = Math.random().toString(36).substring(2, 8);
+         // Get current date and time
+         const now = new Date();
+         const createdAt = now.toLocaleDateString() + " " + now.toLocaleTimeString();
+
+          // Construct user object
+          const userToAdd = {
+            _id: randomId,
+        username: newUser.username,
+         email: newUser.email,
+        password: newUser.password,
+        createdAt:createdAt,
+        isLoggedIn: false
+          }
+
+          users.push(userToAdd);
+        console.log("User added successfully.");
+
+    }
+}
 // b. Create a function called signIn which allows user to sign in to the application
+// function signIn(username, password){
+//     const user = users.find(
+//         user => 
+//             user.username === username &&
+//             user.password === password
+//         );
+//     if(user){
+//         if(!user.isLoggedIn){
+//             user.isLoggedIn = true;
+//             console.log("logged successfully");
+//         } else {
+//             console.log("user already looged in");
+//         }
+//     } else {
+//         console.log("Invalid username or password");
+//     }
+// }
+// console.log(signIn("Anne", "abc123"));;       // Login successful
+// signIn("Anne", "abc123");       // User already logged in
+// signIn("Anne", "wrongpass");    // Invalid username or password
+// signIn("Unknown", "abc123");    // Invalid username or password
 
-// The products array has three elements and each of them has six properties. a. Create a function called rateProduct which rates the product b. Create a function called averageRating which calculate the average rating of a product
+// The products array has three elements and each of them has six properties. 
+// a. Create a function called rateProduct which rates the product 
+function rateProduct(productId, userId, ratingValue){
+      const product = products.find(
+        product => product._id === productId
+    );
 
+    if(product) {
+        product.rating.push({
+            userId:userId,
+            rate:ratingValue
+        });
+        console.log(`product "${product.name}" rated successfully by user '${userId}' with ${ratingValue}.`);
+    } else {
+        console.log("product not found");
+    }
+}
+// b. Create a function called averageRating which calculate the average rating of a product
+function averageRating(productId){
+    const product = products.find(
+        product => product._id === productId
+    );
+
+    if(product){
+        const ratings = product.ratings;
+
+        if(ratings.length === 0){
+            console.log(`Product '${product.name}' has no rating yet`);
+        }
+
+        const total = ratings.reduce((sum, rating) =>
+            sum + rating.rate, 0
+        );
+        const average = total / ratings.length;
+        console.log(`⭐ Average rating for '${product.name}' is: ${average.toFixed(2)} ⭐`);
+    }
+}
+
+console.log(averageRating('eedfcf'));
+console.log(total);   // 12
+console.log(average); // 4
 // Create a function called likeProduct. This function will helps to like to the product if it is not liked and remove like if it was liked.
+function likeProduct(productId, userId){
+const product = products.find(product => 
+    product._id === productId
+);
+
+if(product){
+const likeIndex = product.likes.indexOf(userId);
+
+if(likeIndex === -1){
+    products.likes.push(userId);
+    console.log(`👍 User '${userId}' liked '${product.name}'.`);
+} else {
+    products.likes.splice(likeIndex, 1);
+    console.log(`User ${userId} unliked '${product.name}'`);
+}
+} else {
+    console.log("product not found");
+}
+}
+
+console.log(products.find(product => product._id === 'aegfal').likes);
 
 // 🎉 CONGRATULATIONS ! 🎉
 
